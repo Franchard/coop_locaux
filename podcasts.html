@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Playlist Podcast Privée</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 40px; }
+h2 { margin-bottom: 10px; }
+ul { list-style: none; padding: 0; }
+li { margin: 8px 0; cursor: pointer; }
+li.active { font-weight: bold; color: #007bff; }
+</style>
+</head>
+
+<body>
+
+<h2>🎧 Playlist – Podcasts privés</h2>
+
+<audio id="player" controls></audio>
+
+<ul id="playlist">
+  <li data-src="https://www.dropbox.com/scl/fi/kwdfkfcwqkqdv5932yaj0/Le_casse-t-te_commercial_de_Louis-Hector_de_Calli-re.m4a?rlkey=35w18fpld21xhw04ecfo57b1x&st=l1lxhf7g&dl=1">Le casse-tête commercial de Louis-Hector de Callière</li>
+
+  <li data-src="https://www.dropbox.com/scl/fi/3opq7ye342ilhby88399n/Le_marathon_l-gal_de_la_coop_Calli-re.m4a?rlkey=91lq28i54tnc6wtk5bhvk2sgl&st=i5y50387&dl=1">Le marathon légal de la coop Callière</li>
+
+  <li data-src="https://www.dropbox.com/scl/fi/5drid32anb7l18r2t2czt/Le_paradoxe_commercial_de_la_coop_Calli-re.m4a?rlkey=3e2g0dvaoda2oz8b0aor8vxlu&st=26j21gyp&dl=1">Le paradoxe commercial de la coop Callière</li>
+
+  <li data-src="https://www.dropbox.com/scl/fi/oiu74bndjwv53rnnf604t/Les_commerces_plombent_les_loyers_r-sidentiels.m4a?rlkey=ba6jt5g89q98e2boidmsmte8n&st=jvp31s27&dl=1">Les commerces plombent les loyers résidentiels</li>
+</ul>
+
+<script>
+const player = document.getElementById('player');
+const items = document.querySelectorAll('#playlist li');
+let current = 0;
+
+function loadTrack(index) {
+  items[current].classList.remove('active');
+  current = index;
+  player.src = items[current].getAttribute('data-src');
+  items[current].classList.add('active');
+  player.play();
+}
+
+items.forEach((item, index) => {
+  item.addEventListener('click', () => loadTrack(index));
+});
+
+player.addEventListener('ended', () => {
+  let next = current + 1;
+  if (next < items.length) loadTrack(next);
+});
+
+loadTrack(0);
+</script>
+
+</body>
+</html>
